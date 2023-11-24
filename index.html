@@ -1,74 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #110759;
-        }
-        .login-container {
-            width: 300px;
-            margin: 0 auto;
-            margin-top: 150px;
-            padding: 40px;
-            background-color: orange;
-            border-radius: 40px;
-            box-shadow: 0px 0px 5px 0px #888;
-            background-color: orange;
-        }
-        h2 {
-            text-align: center;
-            color: red;
-            font-family: cursive;
-        }
-        .login-input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 40px;
-        }
-        .login-button {
-            width: 100%;
-            padding: 10px;
-            background-color: #0074D9;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        .center-heading {
-            text-align: CENTER;
-            color: red;
-            font-family: algerian;
-            font-size: 30px;
-            letter-spacing: 1px;;
-            font-weight: 1px;
-        }
-    </style>
-</head>
-<body>
-        <div class="center-heading">
-        <h1>GAMERS GALAXY</h1>
-    </div>
-    <div class="login-container">
-        <h2>LOGIN</h2>
-        <form id="passwordForm" onsubmit="checkPassword(); return false;">
-            <input type="text" class="login-input" name="username" placeholder="Username" required>
-            <input type="password" class="login-input" id="password" name="password" placeholder="Password" required>
-            <button type="submit" class="login-button">LOGIN</button>
-        </form>
-    </div>
-    <p id="message"> </p>
-    <script>
-        function checkPassword() {
-            var password = document.getElementById("password").value;
-            if (password === "SRIYANS") {
-                window.location.href = "gamers.html"; // Redirect to the protected content page
-            } else {
-                document.getElementById("message").textContent = " WRONG PASSWORD! YOU ARE A DONKEY GET OUT!";
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+        SRIYANS 
+        </title>
+        <link rel="stylesheet" href="styles.css">
+        </head>
+        <body>
+        <div class="container">
+            <form onsubmit= "sendEmail(); reset(); return false; " >
+            <h3> GAMERS GALAXY</h3>
+<input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                
+                <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
+                <button type="submit">Lets Go</button>
+            </form>
+            </div>
+            <script src=" https://smtpjs.com/v3/smtp.js"> </script>
+            <script>
+            function sendEmail(){
+           Email.send({
+               secureToken: "2621234b-e0a0-4bc7-87bd-4b1057f95898",
+    Host : "smtp.elasticemail.com",
+    Username : "sriyansraj02@gmail.com",
+    Password : "733425A837A906E41EDD31FAED20281F4170",
+    To : 'sriyansraj02@gmail.com',
+    From : document.getElementById("email").value,
+    Subject : "New Contact Form Enquiry",
+    Body : "Name: " +document.getElementById("name").value
+               + "<br> Email: "+document.getElementById("email").value
+             + "<br> Message: "+document.getElementById("message").value
+}).then(
+  message => alert("THANKS BY SRIYANS RAJ")
+);     
             }
-        }
-    </script>
-</body>
-</html>
+            </script>
+        </body>
+    </html>
