@@ -1,41 +1,61 @@
 
     <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-        SRIYANS 
-        </title>
-        <link rel="stylesheet" href="styles.css">
-        </head>
-        <body>
-        <div class="container">
-            <form onsubmit= "sendEmail(); reset(); return false;" >
-            <h3> GAMERS GALAXY</h3>
-<input type="text" id="name" placeholder="Your Name" required>
-                <input type="email" id="email" placeholder="Email" required>
-                
-                <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
-                <button type="submit">Lets Go</button>
-            </form>
-            </div>
-            <script src=" https://smtpjs.com/v3/smtp.js"> </script>
-            <script>
-            function sendEmail(){
-           Email.send({
-               secureToken: "2621234b-e0a0-4bc7-87bd-4b1057f95898",
-    Host : "smtp.elasticemail.com",
-    Username : "sriyansraj02@gmail.com",
-    Password : "733425A837A906E41EDD31FAED20281F4170",
-    To : 'sriyansraj02@gmail.com',
-    From : document.getElementById("email").value,
-    Subject : "New Contact Form Enquiry",
-    Body : "Name: " +document.getElementById("name").value
-               + "<br> Email: "+document.getElementById("email").value
-             + "<br> Message: "+document.getElementById("message").value
-}).then(
-  message => alert("THANKS BY SRIYANS RAJ")
-);     
-            }
-            </script>
-        </body>
-    </html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRIYANS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <form onsubmit="submitForm(); return false;">
+            <h3>GAMERS GALAXY</h3>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
+            <button type="submit">Lets Go</button>
+        </form>
+    </div>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        function sendEmail() {
+            return new Promise((resolve, reject) => {
+                Email.send({
+                    secureToken: "2621234b-e0a0-4bc7-87bd-4b1057f95898",
+                    Host: "smtp.elasticemail.com",
+                    Username: "sriyansraj02@gmail.com",
+                    Password: "733425A837A906E41EDD31FAED20281F4170",
+                    To: 'sriyansraj02@gmail.com',
+                    From: document.getElementById("email").value,
+                    Subject: "New Contact Form Enquiry",
+                    Body: "Name: " + document.getElementById("name").value +
+                        "<br> Email: " + document.getElementById("email").value +
+                        "<br> Message: " + document.getElementById("message").value
+                }).then(
+                    message => {
+                        alert("THANKS BY SRIYANS RAJ");
+                        resolve();
+                    },
+                    error => {
+                        reject(error);
+                    }
+                );
+            });
+        }
+
+        function redirectToExamplePage() {
+            window.location.href = 'gamers.html';
+        }
+
+        function submitForm() {
+            sendEmail()
+                .then(() => {
+                    redirectToExamplePage();
+                })
+                .catch(error => {
+                    console.error('Error sending email:', error);
+                    // Handle error if needed
+                });
+        }
+    </script>
+</body>
+</html>
