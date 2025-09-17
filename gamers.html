@@ -1,106 +1,265 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-     <link rel="icon" href="logo.png" type="image/png">
-     <style>
-        .center-heading {
-            text-align: CENTER;
-            color: #61f554;
-            font-family: algerian;
-            font-size: 30px;
-            letter-spacing: 1px;;
-            font-weight: 1px;
-        }
-    
-    </style>
-    <style>
-        .image-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-content: space-between;
-            width: 450px; /* Set the desired width for the container */
-            height: 300px; /* Set the desired height for the container */
-            background-color: orange;
-            margin: auto;
-            padding: 2px;
-        border-width: thick;
-            border-color: aqua;
-            padding: 20px;
-            border-radius: 40px;
-            
-            
-                
-                
-                
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamers Galaxy - Dynamic Futuristic</title>
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-        .image-container img {
-            width: 200px
-                %; /* Set the desired width for the images */
-            margin: 0; /* Remove margin for precise alignment */
-            height: 135px;
-                border-radius: 30px;
-                
-                
-        }
-    </style>
-        <style>
-        /* Style for the image */
-        #top-left-image {
-            position:absolute;
-            top: 0;
-            left: 13px ;
-            border-radius: 20px;
-        }
-    </style>
+    body {
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background: #000;
+      position: relative;
+    }
 
-       <style>
-        /* Style for the footer */
-        footer {
-            background-color: black; /* Set the background color to black */
-            color: white; /* Set the text color to white */
-            padding: 0px; /* Add some padding to the footer for spacing */
-            border-radius: 40px;
-        }
-    </style>
-        <style>
-        /* Style for links */
-        a {
-            color: white; /* Set the link color to red */
-            text-decoration: none; /* Remove the default underline */
-        }
-    </style>
+    /* ANIMATED BACKGROUND */
+    canvas#starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -3;
+    }
+
+    .neon-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      background: linear-gradient(270deg, #ff007f, #00e5ff, #7b2fff, #00ffa3);
+      background-size: 800% 800%;
+      animation: neonShift 20s ease infinite;
+      z-index: -2;
+      mix-blend-mode: screen;
+      opacity: 0.25;
+    }
+
+    @keyframes neonShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 4px;
+      animation: glowCycle 6s infinite linear;
+      text-shadow: 0 0 20px #00ffd9, 0 0 40px #00ffd9;
+    }
+
+    @keyframes glowCycle {
+      0% { color: #00ffd9; text-shadow: 0 0 20px #00ffd9, 0 0 40px #00ffd9; }
+      25% { color: #ff007f; text-shadow: 0 0 20px #ff007f, 0 0 40px #ff007f; }
+      50% { color: #ffb84d; text-shadow: 0 0 20px #ffb84d, 0 0 40px #ffb84d; }
+      75% { color: #7b2fff; text-shadow: 0 0 20px #7b2fff, 0 0 40px #7b2fff; }
+      100% { color: #00ffd9; text-shadow: 0 0 20px #00ffd9, 0 0 40px #00ffd9; }
+    }
+
+    /* GAME GRID */
+    .games-grid {
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+      z-index: 1;
+    }
+
+    .game-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .game-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px #00ffd9, 0 0 60px #ff007f;
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .game-card p {
+      padding: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #ff007f, #00e5ff, #ffb84d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Floating Logo */
+    #top-left-image {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      border-radius: 20px;
+      height: 70px;
+      width: 70px;
+      transition: transform 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 0 15px #66ffcc, 0 0 40px #00ffd9;
+    }
+
+    #top-left-image:hover {
+      transform: scale(1.2) rotate(15deg);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: auto;
+      background: rgba(0, 0, 0, 0.8);
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 2px solid #66ffcc;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.7);
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+
+    footer a {
+      color: #66ffcc;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #ff7b00;
+    }
+  </style>
 </head>
-<body bgcolor="#110759">
-       <div class="center-heading">
-        <h1>GAMERS GALAXY</h1>
-    </div>
-    
-    <BR>
-    
-   <CENTER> <div class="image-container">
-       <a href="CORONA%20WARRIOR.html" target="_blank"> <img src="CORONA.jpg" alt="Image 1" > </a>
-        <a href="SPACE%20SHOOTER.html" target="_blank"><img src="SPACE.jpg" alt="Image 2"></a>
-       <a href="PARROT%20SHOOTER.html" target="_blank">  <img src="PARROT.jpg" alt="Image 3"></a>
-       <a href="BOUNCY%20PLATFORM.html" target="_blank"> <img src="download.jpg" alt="Image 4"></a>
-       <a href="PAINT.html" target="_blank"> <img src="PAINT.png" alt="Image 5"></a>
-       <a href="OLYMPIC%20JUMP.html" target="_blank"> <img src="JUMP.jpg" alt="Image 6"></a>
-    </div>
-    </CENTER>
-        <br>
-    
-            <a href="about.html" target="blank"> 
-                <img src="logo.png" alt="Your Image" id="top-left-image" height="70px" width="70px">
-        </a>
-        
-            <footer><b>
-       <marquee scrollamount="10"> <p>CONTACT US :
-            <a href="mailto:sriyansraj02@gmail.com" vlink="white" link="white" alink="white"> sriyansraj02@gmail.com
-            </a>
-            <br>
-            © 2023 GAMERS GALAXY. All rights reserved.</p> 
-                </marquee></b>
-    </footer>
+<body>
+  <!-- Dynamic Background -->
+  <canvas id="starfield"></canvas>
+  <div class="neon-bg"></div>
+
+  <!-- Floating logo -->
+  <a href="about.html" target="_blank">
+    <img src="logo.png" alt="Gamers Galaxy Logo" id="top-left-image">
+  </a>
+
+  <header>
+    <h1>Gamers Galaxy</h1>
+  </header>
+
+  <!-- Games Grid -->
+  <section class="games-grid">
+    <a href="CORONA%20WARRIOR.html" target="_blank" class="game-card">
+      <img src="CORONA.jpg" alt="Corona Warrior">
+      <p>Corona Warrior</p>
+    </a>
+
+    <a href="SPACE%20SHOOTER.html" target="_blank" class="game-card">
+      <img src="SPACE.jpg" alt="Space Shooter">
+      <p>Space Shooter</p>
+    </a>
+
+    <a href="PARROT%20SHOOTER.html" target="_blank" class="game-card">
+      <img src="PARROT.jpg" alt="Parrot Shooter">
+      <p>Parrot Shooter</p>
+    </a>
+
+    <a href="BOUNCY%20PLATFORM.html" target="_blank" class="game-card">
+      <img src="download.jpg" alt="Bouncy Platform">
+      <p>Bouncy Platform</p>
+    </a>
+
+    <a href="PAINT.html" target="_blank" class="game-card">
+      <img src="PAINT.png" alt="Paint Game">
+      <p>Paint</p>
+    </a>
+
+    <a href="OLYMPIC%20JUMP.html" target="_blank" class="game-card">
+      <img src="JUMP.jpg" alt="Olympic Jump">
+      <p>Olympic Jump</p>
+    </a>
+  </section>
+
+  <footer>
+    <p>Contact us: 
+      <a href="mailto:sriyansraj02@gmail.com">sriyansraj02@gmail.com</a> <br>
+      © 2023 Gamers Galaxy. All rights reserved.
+    </p>
+  </footer>
+
+  <!-- STARFIELD SCRIPT -->
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const numStars = 150;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createStars() {
+      stars = [];
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2,
+          speed: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(animateStars);
+    }
+
+    createStars();
+    animateStars();
+  </script>
 </body>
 </html>
